@@ -53,9 +53,9 @@ var AwesomeProject = React.createClass({
           style={styles.listView}>
         </ListView>
         <View style={styles.controls}>
-          <Button style={styles.button} onPress={this._sortPlayers}>Sort</Button>
-          <Button style={styles.button} onPress={this._clearScore}>Clear Score</Button>
-          <Button style={styles.button} onPress={this._clearPlayers}>Restart</Button>
+          <Button style={styles.controls} onPress={this._sortPlayers}>Sort</Button>
+          <Button style={styles.controls} onPress={this._clearScore}>Clear Score</Button>
+          <Button style={styles.controls} onPress={this._clearPlayers}>Restart</Button>
         </View>
       </View>
     );
@@ -71,7 +71,13 @@ var AwesomeProject = React.createClass({
     this._updateDataSource(players);
   },
   _clearPlayers: function() {
-    return;
+    players = [
+      {
+        type: "button",
+        name: "Add"
+      },
+    ];
+    this._updateDataSource(players);
   },
   _sortPlayers: function() {
     players.sort(function(a, b) {
@@ -121,22 +127,22 @@ var AwesomeProject = React.createClass({
     if (rowData.type === "data") {
       return (
         <View style={styles.containerCell}>
-          <Text>{rowData.name} score: </Text>
-          <Text>{rowData.score}</Text>
-          <Button onPress={this._addScore.bind(this, rowID)}>+</Button>
+          <Text style={styles.controls}>{rowData.name} score: {rowData.score}</Text>
           <TextInput
-            style={styles.textInput}
+            style={[styles.textInput, styles.controls]}
             onChangeText={this._editScore.bind(this, rowID)}
-            ref={this._bindTextInput.bind(this, rowID)}>
+            ref={this._bindTextInput.bind(this, rowID)}
+            value="0">
           </TextInput>
+          <Button style={styles.controls} onPress={this._addScore.bind(this, rowID)}>Add</Button>
         </View>
       )
     }
     if (rowData.type === "button") {
       return (
         <View style={styles.containerRow}>
-          <TextInput style={styles.textInput} onChangeText={this._editPlayerName}></TextInput>
-          <Button onPress={this._addPlayer}>+</Button>
+          <TextInput style={[styles.textInput, styles.controls]} onChangeText={this._editPlayerName}></TextInput>
+          <Button style={styles.controls} onPress={this._addPlayer}>Add</Button>
         </View>
       )
     }
@@ -146,7 +152,7 @@ var AwesomeProject = React.createClass({
 var styles = StyleSheet.create({
   textInput: {
     height: 20,
-    width: 40,
+    width: 80,
     borderColor: 'gray',
     borderWidth: 1
   },
@@ -154,7 +160,7 @@ var styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
   },
   listView: {
-    flex: 9,
+    flex: 4,
     paddingTop: 40,
     backgroundColor: '#F5FCFF',
   },
@@ -168,13 +174,14 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   containerRow: {
-    flex: 1,
+    marginLeft: 40,
+    width: 300,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
   },
   containerCell: {
-    flex: 1,
+    width: 400,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
