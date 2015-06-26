@@ -26,7 +26,6 @@ var {
 } = React;
 
 var AwesomeProject = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
     var ds = new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -65,6 +64,8 @@ var AwesomeProject = React.createClass({
     for (var i = 0; i < players.length; i++) {
       if (players[i].type === "data") {
         players[i].score = 0;
+        players[i].newScore = 0;
+        players[i].newScoreInput.setNativeProps({text: 0});
       }
     };
     this._updateDataSource(players);
@@ -82,6 +83,11 @@ var AwesomeProject = React.createClass({
       }
       return b.score - a.score;
     });
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].type === "data") {
+        players[i].newScoreInput.setNativeProps({text: 0})
+      }
+    };
     this._updateDataSource(players);
   },
   _editPlayerName: function(text) {
@@ -89,12 +95,12 @@ var AwesomeProject = React.createClass({
       newPlayerName: text
     })
   },
-  _editScore: function(rowID, text) {
+  _editScore: function(rowID, score) {
     rowID = parseInt(rowID);
-    players[rowID].newScore = parseInt(text);
+    players[rowID].newScore = parseInt(score);
     this._updateDataSource(players);
   },
-  _updateDataSource(dataList) {
+  _updateDataSource: function(dataList) {
     var ds = new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
     });
@@ -104,8 +110,12 @@ var AwesomeProject = React.createClass({
   },
   _addScore: function(index) {
     index = parseInt(index)
-    players[index].score += players[index].newScore;
+    players[index].score += parseInt(players[index].newScore);
     this._updateDataSource(players);
+  },
+  _bindTextInput: function(index, component) {
+    index = parseInt(index);
+    players[index].newScoreInput = component;
   },
   renderScore: function(rowData, sectionID, rowID, highlightRow) {
     if (rowData.type === "data") {
@@ -114,7 +124,11 @@ var AwesomeProject = React.createClass({
           <Text>{rowData.name} score: </Text>
           <Text>{rowData.score}</Text>
           <Button onPress={this._addScore.bind(this, rowID)}>+</Button>
-          <TextInput style={styles.textInput} onChangeText={this._editScore.bind(this, rowID) valueLink={this.linkState('message'}></TextInput>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={this._editScore.bind(this, rowID)}
+            ref={this._bindTextInput.bind(this, rowID)}>
+          </TextInput>
         </View>
       )
     }
