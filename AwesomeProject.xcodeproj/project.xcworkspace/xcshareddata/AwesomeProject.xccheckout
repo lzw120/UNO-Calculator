@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6D67EA10-7F39-4890-8C06-36137A71FD0A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AwesomeProject</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C8D2E3D2E58B221E2CAB88021388600F0048ADE0</key>
+		<string>github.com:lzw120/UNO-Calculator.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AwesomeProject.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C8D2E3D2E58B221E2CAB88021388600F0048ADE0</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:lzw120/UNO-Calculator.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C8D2E3D2E58B221E2CAB88021388600F0048ADE0</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C8D2E3D2E58B221E2CAB88021388600F0048ADE0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UNO-Calculator</string>
+		</dict>
+	</array>
+</dict>
+</plist>
