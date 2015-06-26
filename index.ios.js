@@ -151,7 +151,7 @@ var AwesomeProject = React.createClass({
 
 var styles = StyleSheet.create({
   textInput: {
-    height: 20,
+    height: 30,
     width: 80,
     borderColor: 'gray',
     borderWidth: 1
@@ -181,6 +181,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   containerCell: {
+    alignItems: 'center',
     width: 400,
     flexDirection: 'row',
     justifyContent: 'center',
