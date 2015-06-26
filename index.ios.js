@@ -121,7 +121,9 @@ var AwesomeProject = React.createClass({
   },
   _bindTextInput: function(index, component) {
     index = parseInt(index);
-    players[index].newScoreInput = component;
+    if ((index < players.length-1) && (players[index].type === "data")) {
+      players[index].newScoreInput = component;
+    }
   },
   renderScore: function(rowData, sectionID, rowID, highlightRow) {
     if (rowData.type === "data") {
@@ -129,12 +131,12 @@ var AwesomeProject = React.createClass({
         <View style={styles.containerCell}>
           <Text style={styles.controls}>{rowData.name} score: {rowData.score}</Text>
           <TextInput
-            style={[styles.textInput, styles.controls]}
+            style={[styles.textInput, styles.controls, styles.editScore]}
             onChangeText={this._editScore.bind(this, rowID)}
             ref={this._bindTextInput.bind(this, rowID)}
             value="0">
           </TextInput>
-          <Button style={styles.controls} onPress={this._addScore.bind(this, rowID)}>Add</Button>
+          <Button style={styles.controls} onPress={this._addScore.bind(this, rowID)}>Add Score</Button>
         </View>
       )
     }
@@ -142,7 +144,7 @@ var AwesomeProject = React.createClass({
       return (
         <View style={styles.containerRow}>
           <TextInput style={[styles.textInput, styles.controls]} onChangeText={this._editPlayerName}></TextInput>
-          <Button style={styles.controls} onPress={this._addPlayer}>Add</Button>
+          <Button style={styles.controls} onPress={this._addPlayer}>Add Player</Button>
         </View>
       )
     }
@@ -151,7 +153,8 @@ var AwesomeProject = React.createClass({
 
 var styles = StyleSheet.create({
   textInput: {
-    height: 30,
+    paddingLeft: 10,
+    height: 44,
     width: 80,
     borderColor: 'gray',
     borderWidth: 1
@@ -172,21 +175,28 @@ var styles = StyleSheet.create({
   },
   controls: {
     flex: 1,
+    fontSize: 16,
+  },
+  editScore: {
+    marginTop: 7
   },
   containerRow: {
     marginLeft: 40,
+    marginTop: 20,
     width: 300,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
   },
   containerCell: {
     alignItems: 'center',
-    width: 400,
+    marginTop: 10,
+    borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
-    height: 40,
+    height: 60,
   },
   rightContainer: {
     flex: 1,
