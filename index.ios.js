@@ -40,7 +40,8 @@ var AwesomeProject = React.createClass({
     players.splice(players.length-1, 0, {
       type: "data",
       name: this.state.newPlayerName,
-      score: 0
+      score: 0,
+      newScore: 0,
     });
     this._updateDataSource(players);
   },
@@ -52,13 +53,22 @@ var AwesomeProject = React.createClass({
           renderRow={this.renderScore}
           style={styles.listView}>
         </ListView>
-        <View style={styles.controls}>
+        <View style={[styles.controls, styles.foot]}>
           <Button style={styles.controls} onPress={this._sortPlayers}>Sort</Button>
           <Button style={styles.controls} onPress={this._clearScore}>Clear Score</Button>
           <Button style={styles.controls} onPress={this._clearPlayers}>Restart</Button>
+          <Button style={styles.controls} onPress={this._calculateScore}>Add Score</Button>
         </View>
       </View>
     );
+  },
+  _calculateScore: function() {
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].type === "data") {
+        players[i].score += players[i].newScore;
+      }
+    };
+    this._updateDataSource(players);
   },
   _clearScore: function() {
     for (var i = 0; i < players.length; i++) {
@@ -134,9 +144,9 @@ var AwesomeProject = React.createClass({
             style={[styles.textInput, styles.controls, styles.editScore]}
             onChangeText={this._editScore.bind(this, rowID)}
             ref={this._bindTextInput.bind(this, rowID)}
+            clearButtonMode="while-editing"
             value="0">
           </TextInput>
-          <Button style={styles.controls} onPress={this._addScore.bind(this, rowID)}>Add Score</Button>
         </View>
       )
     }
@@ -157,13 +167,14 @@ var styles = StyleSheet.create({
     height: 44,
     width: 80,
     borderColor: 'gray',
-    borderWidth: 1
+    borderWidth: 1,
+    borderRadius: 5
   },
   app: {
     backgroundColor: "#F5FCFF",
   },
   listView: {
-    flex: 4,
+    flex: 3,
     paddingTop: 40,
     backgroundColor: '#F5FCFF',
   },
@@ -175,7 +186,10 @@ var styles = StyleSheet.create({
   },
   controls: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 20,
+  },
+  foot: {
+    borderTopWidth: 1
   },
   editScore: {
     marginTop: 7
@@ -192,7 +206,8 @@ var styles = StyleSheet.create({
   containerCell: {
     alignItems: 'center',
     marginTop: 10,
-    borderWidth: 1,
+    paddingRight: 10,
+    paddingLeft: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
