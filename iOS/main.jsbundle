@@ -1233,6 +1233,7 @@ var AwesomeProject = React.createClass({displayName: "AwesomeProject",
             style: [styles.textInput, styles.controls, styles.editScore], 
             onChangeText: this._editScore.bind(this, rowID), 
             ref: this._bindTextInput.bind(this, rowID), 
+            clearButtonMode: "while-editing", 
             value: "0"}
           )
         )
@@ -1240,9 +1241,12 @@ var AwesomeProject = React.createClass({displayName: "AwesomeProject",
     }
     if (rowData.type === "button") {
       return (
-        React.createElement(View, {style: styles.containerRow}, 
-          React.createElement(TextInput, {style: [styles.textInput, styles.controls], onChangeText: this._editPlayerName}), 
-          React.createElement(Button, {style: styles.controls, onPress: this._addPlayer}, "Add Player")
+        React.createElement(View, null, 
+          React.createElement(View, {style: styles.containerRow}, 
+            React.createElement(TextInput, {style: [styles.textInput, styles.controls], onChangeText: this._editPlayerName}), 
+            React.createElement(Button, {style: styles.controls, onPress: this._addPlayer}, "Add Player")
+          ), 
+          React.createElement(View, {style: styles.paddingScrollView})
         )
       )
     }
@@ -1257,6 +1261,9 @@ var styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5
+  },
+  paddingScrollView: {
+    height: 100,
   },
   app: {
     backgroundColor: "#F5FCFF",

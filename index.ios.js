@@ -152,9 +152,12 @@ var AwesomeProject = React.createClass({
     }
     if (rowData.type === "button") {
       return (
-        <View style={styles.containerRow}>
-          <TextInput style={[styles.textInput, styles.controls]} onChangeText={this._editPlayerName}></TextInput>
-          <Button style={styles.controls} onPress={this._addPlayer}>Add Player</Button>
+        <View>
+          <View style={styles.containerRow}>
+            <TextInput style={[styles.textInput, styles.controls]} onChangeText={this._editPlayerName}></TextInput>
+            <Button style={styles.controls} onPress={this._addPlayer}>Add Player</Button>
+          </View>
+          <View style={styles.paddingScrollView}></View>
         </View>
       )
     }
@@ -169,6 +172,9 @@ var styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 5
+  },
+  paddingScrollView: {
+    height: 100,
   },
   app: {
     backgroundColor: "#F5FCFF",
